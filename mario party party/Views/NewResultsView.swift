@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct NewResultsView: View {
     
     @State private var speed = 0.0
@@ -17,19 +18,30 @@ struct NewResultsView: View {
     }
     @State private var isEditing = false
     
+    @ObservedObject var model = UserModel()
+    @ObservedObject var scoreModel = ScoreModel()
+    
+    func storeScore() {
+        model.users.forEach { user in
+            scoreModel.addScores(score: Score(value: user.score, date: Date(), userId: user.id))
+            }
+    }
+    
     var body: some View  {
         VStack {
-                Slider(
-                    value: $speed,
-                    in: 0...7,
-                    step: 1,
-                    onEditingChanged: { editing in
-                        isEditing = editing
-                    }
-                )
-                Text("\(speedInt)")
-                    .foregroundColor(isEditing ? .red : .blue)
+            ForEach(model.users) { user in
+                PlayerSlider(user: user, userModel: model)
             }
+            Button(action: storeScore) {
+                Text("Speichern")
+            }
+            List(model.users) { user in
+                Text(user.name + ": " + String(user.score))
+            }
+        }
+    }
+    init() {
+        model.getUsers()
     }
 }
 

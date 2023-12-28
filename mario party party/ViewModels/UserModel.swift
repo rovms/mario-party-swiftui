@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-class ViewModel: ObservableObject {
+class UserModel: ObservableObject {
     @Published var users = [User]()
     
     func getUsers() {
@@ -19,17 +19,22 @@ class ViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.users = snapshot.documents.map { user in
                             print(snapshot.documents)
-                            return User(id: user.documentID, name: user["name"] as? String ?? "")
+                            return User(
+                                id: user.documentID,
+                                name: user["name"] as? String ?? "",
+                                score: 0)
                         }
                     }
                 }
-            } else {
-                
             }
         }
     }
     
-    func addPoints(points: UInt8) {
-        
+    func updateScore(userId: String, newScore: Int) {
+        for i in 0..<users.count {
+            if users[i].id == userId {
+                users[i].score = newScore
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ struct MainView: View {
         VStack {
             NavigationView {
                 VStack {
-                    NavigationLink(destination: ResultView()) {
+                    NavigationLink(destination: ScoresView()) {
                         Text("Resultate")
                     }
                     NavigationLink(destination: NewResultsView()) {
