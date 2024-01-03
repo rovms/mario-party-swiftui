@@ -24,6 +24,7 @@
 		5CA390B82B3C33E700A3543C /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390B72B3C33E700A3543C /* PlayerSlider.swift */; };
 		5CA390BB2B3C664E00A3543C /* ScoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BA2B3C664E00A3543C /* ScoreModel.swift */; };
 		5CA390BD2B3C667800A3543C /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BC2B3C667800A3543C /* Score.swift */; };
+		5CA390BF2B415F9000A3543C /* ScoresView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BE2B415F9000A3543C /* ScoresView2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		5CA390B72B3C33E700A3543C /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
 		5CA390BA2B3C664E00A3543C /* ScoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreModel.swift; sourceTree = "<group>"; };
 		5CA390BC2B3C667800A3543C /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		5CA390BE2B415F9000A3543C /* ScoresView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				5CA3907D2B37132E00A3543C /* MainView.swift */,
 				5CA390B32B39E0CA00A3543C /* ScoresView.swift */,
+				5CA390BE2B415F9000A3543C /* ScoresView2.swift */,
 				5CA390B52B3AE1FB00A3543C /* NewResultsView.swift */,
 			);
 			path = Views;
@@ -331,6 +334,7 @@
 				5CA3907E2B37132E00A3543C /* MainView.swift in Sources */,
 				5CA390B42B39E0CA00A3543C /* ScoresView.swift in Sources */,
 				5CA390AE2B38836500A3543C /* UserModel.swift in Sources */,
+				5CA390BF2B415F9000A3543C /* ScoresView2.swift in Sources */,
 				5CA390B82B3C33E700A3543C /* PlayerSlider.swift in Sources */,
 				5CA390BD2B3C667800A3543C /* Score.swift in Sources */,
 				5CA3907C2B37132E00A3543C /* mario_party_partyApp.swift in Sources */,

@@ -2,27 +2,33 @@
 //  ResultView.swift
 //  mario party party
 //
-//  Created by Roman Bucher on 25/12/2023.
+//  Created by Roman Bucher on 31/12/2023.
 //
 
 import SwiftUI
 import Charts
 
 
-struct ScoresView: View {
+struct ScoresView2: View {
     @ObservedObject var userModel = UserModel()
-    @ObservedObject var scoreModel = ScoreModel()
     
     var body: some View  {
         VStack {
-            List(scoreModel.scores) { score in
+            List(userModel.users) { user in
                 HStack {
-                    Text(score.userId)
+                    Text(user.name)
                     Spacer()
-                    Text(String(score.value))
+                    Text(user.id)
                 }
-            }.onAppear {
-                scoreModel.getScores()
+            }
+            
+            ForEach(userModel.users) { user in
+                    Text(user.name)
+                    Text("Scores")
+                    ForEach(user.scores) { score in
+                        Text(String(score.value))
+                    }
+                
             }
             
             /**
@@ -53,11 +59,10 @@ struct ScoresView: View {
     }
     
     init() {
-        scoreModel.getScores()
-        scoreModel.getUpdatedScores()
+        userModel.getUsers()
     }
 }
 
 #Preview {
-    ScoresView()
+    ScoresView2()
 }

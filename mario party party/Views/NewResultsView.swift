@@ -17,26 +17,31 @@ struct NewResultsView: View {
         }
     }
     @State private var isEditing = false
+    @State private var date = Date()
+    private var addNewScores = false
     
     @ObservedObject var model = UserModel()
     @ObservedObject var scoreModel = ScoreModel()
     
     func storeScore() {
         model.users.forEach { user in
-            scoreModel.addScores(score: Score(value: user.score, date: Date(), userId: user.id))
+            scoreModel.addScores(score: Score(value: user.score, date: self.date, userId: user.id), userModel: model)
             }
     }
     
     var body: some View  {
         VStack {
-            ForEach(model.users) { user in
-                PlayerSlider(user: user, userModel: model)
-            }
-            Button(action: storeScore) {
-                Text("Speichern")
-            }
-            List(model.users) { user in
-                Text(user.name + ": " + String(user.score))
+                ForEach(model.users) { user in
+                    PlayerSlider(user: $user, userModel: model)
+                }
+                Button(action: storeScore) {
+                    Text("Speichern")
+                }
+                DatePicker(
+                        "Datum",
+                         selection: $date,
+                         displayedComponents: [.date, .hourAndMinute]
+                   )
             }
         }
     }

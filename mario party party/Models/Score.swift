@@ -12,12 +12,16 @@ struct Score: Identifiable {
     var value: Int
     var date: Date
     var userId: String
+    var game: String
+    var userName: String
     
-    init(id: String, value: Int, date: Date, userId: String) {
+    init(id: String, value: Int, date: Date, userId: String, game: String) {
         self.id = id
         self.value = value
         self.date = date
         self.userId = userId
+        self.game = game
+        self.userName = ""
     }
     
     init(value: Int, date: Date, userId: String) {
@@ -25,5 +29,7 @@ struct Score: Identifiable {
         self.value = value
         self.date = date
         self.userId = userId
+        self.game = "none"
+        self.userName = ""
     }
 }

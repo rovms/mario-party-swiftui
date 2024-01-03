@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @ObservedObject var userModel = UserModel()
+    @ObservedObject var scoreModel = ScoreModel()
         
     var body: some View {
         VStack {
@@ -23,6 +26,10 @@ struct MainView: View {
             }
         }
         .padding()
+    }
+    
+    init() {
+        userModel.getData()
     }
 }
 
