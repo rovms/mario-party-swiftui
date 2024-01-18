@@ -32,7 +32,7 @@ struct NewResultsView: View {
     var body: some View  {
         VStack {
                 ForEach(model.users) { user in
-                    PlayerSlider(user: $user, userModel: model)
+                    PlayerSlider(user: user, userModel: model)
                 }
                 Button(action: storeScore) {
                     Text("Speichern")
@@ -42,12 +42,11 @@ struct NewResultsView: View {
                          selection: $date,
                          displayedComponents: [.date, .hourAndMinute]
                    )
-            }
+        }.onAppear {
+            model.getData()
         }
-    }
-    init() {
-        model.getUsers()
-    }
+        }
+    
 }
 
 #Preview {

@@ -18,7 +18,7 @@ struct PlayerSlider: View {
     }
     @State private var isEditing = false
     
-    @State var user: User
+    var user: User
     var userModel: UserModel
     
     var body: some View  {
@@ -32,7 +32,6 @@ struct PlayerSlider: View {
                         },
                         set: { (newVal) in
                             self.score = newVal
-                            self.user.score = Int(newVal)
                             self.userModel.updateScore(userId: user.id, newScore: Int(newVal))
                         }
                     ),

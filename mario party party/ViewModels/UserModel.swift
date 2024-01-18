@@ -43,6 +43,12 @@ class UserModel: ObservableObject {
         print(self.users)
     }
     
+    func usersSortedByScore() -> [User] {
+        return self.users.sorted {
+            $0.totalScore > $1.totalScore
+        }
+    }
+    
     
     func getData() {
         let group = DispatchGroup()
@@ -92,6 +98,37 @@ class UserModel: ObservableObject {
             self.users.forEach { user in
                 print("cumulative: " + user.name)
                 print(user.cumulativeScores)
+            }
+        }
+    }
+    
+    func getUpdatedScores() {
+        let db = Firestore.firestore()
+        db.collection("scores").whereField("date", isGreaterThan: Date()).addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("error fetching snapshots (listener)")
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                let document = diff.document
+                if (diff.type == .added) {
+                    print("New score: \(document.data())")
+                    for i in self.users.indices {
+                        if document["userId"] as? String == self.users[i].id {
+                            self.users[i].scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
+                        }
+                    }
+                  }
+                  if (diff.type == .modified) {
+                      //TODO:
+                      print("Modified score: \(document.data())")
+                  }
+                  if (diff.type == .removed) {
+                    //TODO:
+                      let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
+                      self.scores.remove(at: removedIndex)
+                      print("Removed score: \(document.data())")
+                  }
             }
         }
     }

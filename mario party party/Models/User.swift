@@ -12,6 +12,18 @@ struct User: Identifiable {
     var name: String
     var score: Int
     var scores: [Score]
+    var totalScore: Int {
+        if self.scores.isEmpty {
+            return 0
+        } else {
+            var total = 0
+            self.scores.forEach { score in
+                total += score.value
+            }
+            return total
+        }
+    }
+    
     var cumulativeScores: [Int] {
         if self.scores.isEmpty {
             return []

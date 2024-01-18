@@ -69,7 +69,7 @@ class ScoreModel: ObservableObject {
     }
      */
     
-    func addScores(score: Score, userModel: UserModel) {
+    func addScores(score: Score, userModel: UserModel = UserModel()) {
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
         let ref = db.collection("scores").addDocument(data: ["value": score.value, "userId": score.userId, "date": score.date])

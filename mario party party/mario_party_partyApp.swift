@@ -16,7 +16,7 @@ struct mario_party_partyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            ContentView()
         }
     }
 }
