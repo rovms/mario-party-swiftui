@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// let background = LinearGradient(gradient: Gradient(colors: [.red, .green, .yellow, .blue, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
-
 struct ContentView: View {
     
     @ObservedObject var userModel = UserModel()
@@ -50,12 +48,39 @@ struct ContentView: View {
 
 struct NewResultsSheetView: View {
     
+    enum MarioPartyVersion: CaseIterable, Identifiable {
+        case marioParty2
+        case marioParty3
+        
+        var id: Self { self }
+        
+        var describing: String {
+            switch self {
+            case .marioParty2:
+                
+                return "Mario Party 2"
+            case .marioParty3:
+                return "Mario Party 3"
+            }
+        }
+        
+        var dbValue: String {
+            switch self {
+            case .marioParty2:
+                return "marioParty2"
+            case .marioParty3:
+                return "marioParty3"
+            }
+        }
+    }
+    
     var users: [User]
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var scoreModel: ScoreModel
     
     @State private var date = Date()
     @State private var invalidScore = false
+    @State private var selectedMarioPartyVersion: MarioPartyVersion = .marioParty2
     
     @Environment(\.dismiss) var dismiss
     
@@ -85,7 +110,8 @@ struct NewResultsSheetView: View {
                 score: Score(
                     value: user.score,
                     date: self.date,
-                    userId: user.id
+                    userId: user.id,
+                    game: selectedMarioPartyVersion.dbValue
                 ), userModel: userModel)
         }
         dismiss()
@@ -101,6 +127,12 @@ struct NewResultsSheetView: View {
                     label: { Text("Datum").foregroundStyle(.gray) }
                 )
             }.padding(.leading).padding(.trailing)
+            Spacer()
+            Picker("Spiel", selection: $selectedMarioPartyVersion) {
+                ForEach(MarioPartyVersion.allCases) { mpVersion in
+                    Text(mpVersion.describing)
+                }
+            }.pickerStyle(.segmented).padding()
             Spacer()
             Divider()
             Spacer()

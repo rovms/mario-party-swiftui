@@ -15,15 +15,13 @@ enum DataError: Error {
 
 class ScoreModel: ObservableObject {
     @Published var scores = [Score]()
-    @Published var receivedScores = false
     
     let db = Firestore.firestore()
     
-     func getScores() {
+    func getScores() {
         db.collection("scores").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
-                    self.receivedScores = true
                     DispatchQueue.main.async {
                         self.scores = snapshot.documents.map { documentSnapshot in
                             return self.getScoreFromFirestoreDoc(documentSnapshot: documentSnapshot)
@@ -45,34 +43,25 @@ class ScoreModel: ObservableObject {
                 if (diff.type == .added) {
                     self.scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
                     print("New score: \(document.data())")
-                  }
-                  if (diff.type == .modified) {
+                }
+                if (diff.type == .modified) {
                     //TODO:
                     print("Modified score: \(document.data())")
-                  }
-                  if (diff.type == .removed) {
+                }
+                if (diff.type == .removed) {
                     //TODO:
-                      let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
-                      self.scores.remove(at: removedIndex)
-                      print("Removed score: \(document.data())")
-                  }
+                    let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
+                    self.scores.remove(at: removedIndex)
+                    print("Removed score: \(document.data())")
+                }
             }
         }
     }
-    /**
-    func addScores(score: Score) {
-        do {
-            let _ = try db.collection("scores").addDocument(data: ["value": score.value, "userId": score.userId, "date": score.date])
-        } catch {
-            print(error)
-        }
-    }
-     */
     
     func addScores(score: Score, userModel: UserModel = UserModel()) {
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        let ref = db.collection("scores").addDocument(data: ["value": score.value, "userId": score.userId, "date": score.date])
+        let ref = db.collection("scores").addDocument(data: ["value": score.value, "userId": score.userId, "date": score.date, "game": score.game])
         ref.getDocument { document, error in
             if error == nil {
                 if let document = document, document.exists {
@@ -105,12 +94,12 @@ class ScoreModel: ObservableObject {
     }
     
     func getScoreFromFirestoreDoc(documentSnapshot: QueryDocumentSnapshot) -> Score {
-           return  Score(
-                id: documentSnapshot.documentID,
-                value: documentSnapshot["value"] as? Int ?? 0,
-                date: documentSnapshot["date"] as? Date ?? Date(),
-                userId: documentSnapshot["userId"] as? String ?? "",
-                game: documentSnapshot["game"] as? String ?? ""
-            )
+        return  Score(
+            id: documentSnapshot.documentID,
+            value: documentSnapshot["value"] as? Int ?? 0,
+            date: documentSnapshot["date"] as? Date ?? Date(),
+            userId: documentSnapshot["userId"] as? String ?? "",
+            game: documentSnapshot["game"] as? String ?? ""
+        )
     }
 }

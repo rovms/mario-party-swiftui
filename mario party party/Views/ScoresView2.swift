@@ -23,37 +23,37 @@ struct ScoresView2: View {
             }
             
             ForEach(userModel.users) { user in
-                    Text(user.name)
-                    Text("Scores")
-                    ForEach(user.scores) { score in
-                        Text(String(score.value))
-                    }
+                Text(user.name)
+                Text("Scores")
+                ForEach(user.scores) { score in
+                    Text(String(score.value))
+                }
                 
             }
             
             /**
-            Chart(scoreModel.enrichedScores) {
-                LineMark(
-                    x: .value("Datum", $0.date),
-                    y: .value("Punkte", $0.value)
-                ).foregroundStyle(by: .value("Spieler", $0.userId))
-            }.onAppear {
-                scoreModel.getScores()
-            }
-           
-            Chart {
-                ForEach(userModel.users) { user in
-                    ForEach(scoreModel.getScoresByUserId(userId: user.id), id: \.date) { score in
-                        LineMark(
-                           x: .value("Spiel", score.date),
-                           y: .value("Punkte", score.value),
-                           series: .value("User", score.userId)
-                       )
-                    }
-                }
-            }.onAppear {
-                scoreModel.getScores()
-            }
+             Chart(scoreModel.enrichedScores) {
+             LineMark(
+             x: .value("Datum", $0.date),
+             y: .value("Punkte", $0.value)
+             ).foregroundStyle(by: .value("Spieler", $0.userId))
+             }.onAppear {
+             scoreModel.getScores()
+             }
+             
+             Chart {
+             ForEach(userModel.users) { user in
+             ForEach(scoreModel.getScoresByUserId(userId: user.id), id: \.date) { score in
+             LineMark(
+             x: .value("Spiel", score.date),
+             y: .value("Punkte", score.value),
+             series: .value("User", score.userId)
+             )
+             }
+             }
+             }.onAppear {
+             scoreModel.getScores()
+             }
              */
         }
     }

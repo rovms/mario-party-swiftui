@@ -56,7 +56,7 @@ class UserModel: ObservableObject {
         let db = Firestore.firestore()
         group.enter() // users
         group.enter() // scores
-
+        
         db.collection("users").getDocuments { userSnapshot, userError in
             if userError == nil {
                 if let userSnapshot = userSnapshot {
@@ -69,8 +69,8 @@ class UserModel: ObservableObject {
                 }
             }
         }
-         
-         db.collection("scores").getDocuments { snapshot, error in
+        
+        db.collection("scores").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     DispatchQueue.main.async {
@@ -118,17 +118,17 @@ class UserModel: ObservableObject {
                             self.users[i].scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
                         }
                     }
-                  }
-                  if (diff.type == .modified) {
-                      //TODO:
-                      print("Modified score: \(document.data())")
-                  }
-                  if (diff.type == .removed) {
+                }
+                if (diff.type == .modified) {
                     //TODO:
-                      let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
-                      self.scores.remove(at: removedIndex)
-                      print("Removed score: \(document.data())")
-                  }
+                    print("Modified score: \(document.data())")
+                }
+                if (diff.type == .removed) {
+                    //TODO:
+                    let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
+                    self.scores.remove(at: removedIndex)
+                    print("Removed score: \(document.data())")
+                }
             }
         }
     }
@@ -148,22 +148,22 @@ class UserModel: ObservableObject {
     }
     
     func getUserFromFirestoreDoc(documentSnapshot: QueryDocumentSnapshot) -> User {
-            return User(
-                id: documentSnapshot.documentID,
-                name: documentSnapshot["name"] as? String ?? "",
-                score: 0,
-                scores: [Score]()
-            )
+        return User(
+            id: documentSnapshot.documentID,
+            name: documentSnapshot["name"] as? String ?? "",
+            score: 0,
+            scores: [Score]()
+        )
     }
     
     func getScoreFromFirestoreDoc(documentSnapshot: QueryDocumentSnapshot) -> Score {
-           return  Score(
-                id: documentSnapshot.documentID,
-                value: documentSnapshot["value"] as? Int ?? 0,
-                date: documentSnapshot["date"] as? Date ?? Date(),
-                userId: documentSnapshot["userId"] as? String ?? "",
-                game: documentSnapshot["game"] as? String ?? ""
-            )
+        return  Score(
+            id: documentSnapshot.documentID,
+            value: documentSnapshot["value"] as? Int ?? 0,
+            date: documentSnapshot["date"] as? Date ?? Date(),
+            userId: documentSnapshot["userId"] as? String ?? "",
+            game: documentSnapshot["game"] as? String ?? ""
+        )
     }
     
     func resetScore(userId: String) {

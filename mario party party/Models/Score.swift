@@ -24,12 +24,12 @@ struct Score: Identifiable {
         self.userName = ""
     }
     
-    init(value: Int, date: Date, userId: String) {
+    init(value: Int, date: Date, userId: String, game: String) {
         self.id = ""
         self.value = value
         self.date = date
         self.userId = userId
-        self.game = "none"
+        self.game = game
         self.userName = ""
     }
 }
