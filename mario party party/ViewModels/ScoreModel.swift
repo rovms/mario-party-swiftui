@@ -23,8 +23,8 @@ class ScoreModel: ObservableObject {
             if error == nil {
                 if let snapshot = snapshot {
                     DispatchQueue.main.async {
-                        self.scores = snapshot.documents.map { documentSnapshot in
-                            return self.getScoreFromFirestoreDoc(documentSnapshot: documentSnapshot)
+                        self.scores = snapshot.documents.enumerated().map { (i, documentSnapshot) in
+                            return self.getScoreFromFirestoreDoc(i: i, documentSnapshot: documentSnapshot)
                         }
                     }
                 }
@@ -35,24 +35,20 @@ class ScoreModel: ObservableObject {
     func getUpdatedScores() {
         db.collection("scores").whereField("date", isGreaterThan: Date()).addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
-                print("error fetching snapshots (listener)")
                 return
             }
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 if (diff.type == .added) {
-                    self.scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
-                    print("New score: \(document.data())")
+                    self.scores.append(self.getScoreFromFirestoreDoc(i: -1, documentSnapshot: document))
                 }
                 if (diff.type == .modified) {
                     //TODO:
-                    print("Modified score: \(document.data())")
                 }
                 if (diff.type == .removed) {
                     //TODO:
                     let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
                     self.scores.remove(at: removedIndex)
-                    print("Removed score: \(document.data())")
                 }
             }
         }
@@ -88,18 +84,19 @@ class ScoreModel: ObservableObject {
             }
             return false
         }
-        print(userId)
-        print(filtered)
         return filtered
     }
     
-    func getScoreFromFirestoreDoc(documentSnapshot: QueryDocumentSnapshot) -> Score {
+    func getScoreFromFirestoreDoc(i: Int = -1, documentSnapshot: QueryDocumentSnapshot) -> Score {
+        let ts = documentSnapshot["date"] as? Timestamp ?? Timestamp()
+
         return  Score(
             id: documentSnapshot.documentID,
             value: documentSnapshot["value"] as? Int ?? 0,
-            date: documentSnapshot["date"] as? Date ?? Date(),
+            date: ts.dateValue(),
             userId: documentSnapshot["userId"] as? String ?? "",
-            game: documentSnapshot["game"] as? String ?? ""
+            game: documentSnapshot["game"] as? String ?? "",
+            i: i
         )
     }
 }

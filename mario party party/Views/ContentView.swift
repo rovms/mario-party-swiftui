@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Charts
+import Foundation
 
 struct ContentView: View {
     
@@ -16,17 +18,20 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("MARIO PARTY").font(Font.custom("Lemon-Regular", size: 32)).padding(.bottom)
-            VStack {
-                VStack {
-                    ForEach(userModel.usersSortedByScore()) { user in
-                        HStack {
-                            Text(user.name).font(Font.custom("Lemon-Regular", size: 18)).padding(.leading)
-                            Spacer()
-                            Text(String(user.totalScore)).font(Font.custom("Lemon-Regular", size: 18)).padding(.trailing)
-                        }
-                    }.padding(.bottom)
-                }
-            }
+            /**
+             VStack {
+             VStack {
+             ForEach(userModel.usersSortedByScore()) { user in
+             HStack {
+             Text(user.name).font(Font.custom("Lemon-Regular", size: 18)).padding(.leading)
+             Spacer()
+             Text(String(user.totalScore)).font(Font.custom("Lemon-Regular", size: 18)).padding(.trailing)
+             }
+             }.padding(.bottom)
+             }
+             }
+             */
+            ScoreView().environmentObject(userModel).environmentObject(scoreModel)
             Spacer()
             Button(action: {
                 self.addingNewScores.toggle()
@@ -91,10 +96,7 @@ struct NewResultsSheetView: View {
                 maxScoreCount += 1
             }
         }
-        print("maxScoreCount")
-        print(maxScoreCount)
         if (maxScoreCount != 1) {
-            print("hello")
             invalidScore = true
             return false
         }
@@ -218,6 +220,129 @@ struct PlayerSlider2: View {
     
     init(user: User) {
         self.user = user
+    }
+}
+
+struct Order: Identifiable {
+    var id: String = UUID().uuidString
+    var amount: Int
+    var day: Int
+}
+
+struct ScoreView : View {
+    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var scoreModel: ScoreModel
+    
+    let dateFormatter: DateFormatter
+    
+    
+    func getUserColor(userId: String) -> Color {
+        if (userId == "9IIYk73UzoykFr3xYI1Z") {
+            print("blue")
+            return .blue
+        }
+        if (userId == "XwqeifWwtB0nONsCjDwq") {
+            print("green")
+
+            return .green
+        }
+        if (userId == "lX6VznwQ8j0CqiiG5BUS") {
+            print("yellow")
+
+            return .yellow
+        }
+        if (userId == "yNnW9URqFoarjA8Uq8Km") {
+            print("red")
+
+            return .red
+        }
+        return .gray
+    }
+    
+    var body: some View {
+        ForEach(userModel.scores) { score in
+            HStack {
+                Text(score.id).font(.system(size: 10))
+                Spacer()
+                Text(dateFormatter.string(from: score.date)).font(.system(size: 10))
+                Spacer()
+                Text(score.userId).font(.system(size: 10))
+                Spacer()
+                Text(String(score.value)).font(.system(size: 10))
+            }
+        }
+        
+        Chart {
+            ForEach(userModel.users) { user in
+                ForEach(Array(user.cumulativeScores.enumerated()), id: \.offset) { (i, score) in
+                    LineMark(
+                        x: .value("Month", i + 1), y: .value("Scores", score.cumulativeValue)
+                    ).foregroundStyle(by: .value("userId", score.userId))
+                }
+            }
+            
+        }
+        /**
+         
+         Chart {
+         ForEach(Array(data.enumerated()), id: \.offset) { (i, order) in
+         LineMark(
+         x: .value("Month", order.day), y: .value("Orders", order.amount)
+         ).foregroundStyle(.gray)
+         
+         }
+         ForEach(Array(data2.enumerated()), id: \.offset) { (i, order) in
+         LineMark(
+         x: .value("Month", order.day), y: .value("Orders", order.amount)
+         ).foregroundStyle(.green)
+         
+         }
+         }
+         */
+        
+        /**
+         
+         Chart {
+         ForEach(userModel.users) { user in
+         ForEach(Array(zip(user.scores)) { (i, score) in
+         LineMark(
+         x: .value("Index", i),
+         y: .value("Points", score.value)
+         )
+         .interpolationMethod(.linear)
+         .foregroundStyle(by: .value("Spieler", user.name))
+         }
+         }
+         }
+         
+         
+         Chart(UserModel.scores) {
+         LineMark(
+         x: .value("Datum", $0.date),
+         y: .value("Punkte", $0.value)
+         ).foregroundStyle(by: .value("Spieler", $0.userId))
+         }
+         
+         Chart {
+         ForEach(userModel.users) { user in
+         ForEach(scoreModel.getScoresByUserId(userId: user.id), id: \.date) { score in
+         LineMark(
+         x: .value("Spiel", score.date),
+         y: .value("Punkte", score.value),
+         series: .value("User", score.userId)
+         )
+         }
+         }
+         }.onAppear {
+         scoreModel.getScores()
+         }
+         */
+        
+    }
+    
+    init() {
+        self.dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-YY"
     }
 }
 
