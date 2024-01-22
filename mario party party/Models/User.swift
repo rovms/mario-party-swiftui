@@ -34,20 +34,14 @@ struct User: Identifiable {
             }
             var retCumulativeScores = [Score]()
             for i in self.scores.indices {
-                print("iiiiii")
-                print(i)
+                print("score nr: " + String(i) + ", score: " + String(self.scores[i].value))
                 if i == 0 {
-                    print(" i == 0")
-                    
                     sortedByDateScores[i].cumulativeValue = sortedByDateScores[i].value
-                    print(sortedByDateScores[i].cumulativeValue)
                 } else {
-                    print(" i > 0")
-
-                    sortedByDateScores[i].cumulativeValue = sortedByDateScores[i - 1].value + sortedByDateScores[i].value
-                    print(sortedByDateScores[i].cumulativeValue)
-
+                    sortedByDateScores[i].cumulativeValue = sortedByDateScores[i - 1].cumulativeValue + sortedByDateScores[i].value
                 }
+                print(sortedByDateScores[i].cumulativeValue)
+
                 retCumulativeScores.append(sortedByDateScores[i])
 
             }
