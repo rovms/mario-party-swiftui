@@ -15,14 +15,15 @@ struct ContentView: View {
     @ObservedObject var userModel = UserModel()
     @ObservedObject var scoreModel = ScoreModel()
     @State var addingNewScores = false
-    @State var isSignedIn = false
+    @State var showScoreDetailsTable = false
+    @State var isSignedIn = true //TODO: set to false
     
     @State var email = ""
     @State var password = ""
     @FocusState private var emailFieldIsFocused: Bool
     @FocusState private var passwordFieldIsFocused: Bool
     @State private var invalidEmailPassword = false
-
+    
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error != nil {
@@ -32,23 +33,32 @@ struct ContentView: View {
             isSignedIn = true
         }
     }
-
+    
     var body: some View {
         if isSignedIn {
             VStack {
                 Text("MARIO PARTY").font(Font.custom("Lemon-Regular", size: 32)).padding(.bottom)
                 ScoreView().environmentObject(userModel).environmentObject(scoreModel)
                 Spacer()
-                Button(action: {
-                    self.addingNewScores.toggle()
-                }) {
-                    Text("Neue Resultate").font(.custom("Lemon-Regular", size: 24))
-                }.padding().buttonStyle(.bordered).tint(.orange)
+                HStack {
+                    Button(action: {
+                        self.addingNewScores.toggle()
+                    }) {
+                        Text("Neue Resultate").font(.custom("Lemon-Regular", size: 24))
+                    }.padding().buttonStyle(.bordered).tint(.orange)
+                    Button(action: {
+                        self.showScoreDetailsTable.toggle()
+                    }) {
+                        Image(systemName: "tablecells.badge.ellipsis").font(.title).foregroundStyle(.black)
+                    }
+                }
             }.sheet(isPresented: $addingNewScores,
                     content: {
                 NewResultsSheetView(users: userModel.users).environmentObject(scoreModel).environmentObject(userModel)
-            }
-            ).font(.custom("Lemon-Regular", size: 16)).padding()
+            }).sheet(isPresented: $showScoreDetailsTable,
+                     content: {
+                ScoreDetailsTableView().environmentObject(scoreModel).environmentObject(userModel)
+            })
         }
         if !isSignedIn {
             VStack {
@@ -68,6 +78,58 @@ struct ContentView: View {
         userModel.getUpdatedScores()
         if Auth.auth().currentUser != nil {
             self.isSignedIn = true
+        }
+    }
+}
+
+struct ScoreDetailsTableView: View {
+    @EnvironmentObject var scoreModel: ScoreModel
+    @EnvironmentObject var userModel: UserModel
+    
+    func getUserName(userId: String) -> String {
+        let user = userModel.users.first(where: {
+            $0.id == userId
+        })
+        return user != nil ? user!.name : ""
+    }
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YY HH:mm"
+        return formatter
+    }()
+    
+    func deleteScores(scores: [Score]) {
+        scores.forEach { score in
+            scoreModel.delete(score: score)
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(userModel.scoresGroupedByDate().sorted(by: {$0.key < $1.key}), id: \.key) { group, scores in
+                    Section {
+                        ForEach(scores) { score in
+                            HStack {
+                                Text(self.getUserName(userId: score.userId))
+                                Spacer()
+                                    Text(score.value.description)
+                                
+                            }
+                        }
+                    }
+                header: {
+                    HStack {
+                        Text(self.dateFormatter.string(from: scores[0].date))
+                        Spacer()
+                        Button("Löschen"){
+                            deleteScores(scores: scores)
+                        }.tint(.red)
+                    }
+                    }
+                }
+            }
         }
     }
 }
