@@ -8,39 +8,71 @@
 import SwiftUI
 import Charts
 import Foundation
+import FirebaseAuth
 
 struct ContentView: View {
     
     @ObservedObject var userModel = UserModel()
     @ObservedObject var scoreModel = ScoreModel()
     @State var addingNewScores = false
+    @State var isSignedIn = false
     
-    var body: some View {
-        VStack {
-            Text("MARIO PARTY").font(Font.custom("Lemon-Regular", size: 32)).padding(.bottom)
-            ScoreView().environmentObject(userModel).environmentObject(scoreModel)
-            Spacer()
-            Button(action: {
-                self.addingNewScores.toggle()
-            }) {
-                Text("Neue Resultate").font(.custom("Lemon-Regular", size: 24))
-            }.padding().buttonStyle(.bordered).tint(.orange)
-        }.sheet(isPresented: $addingNewScores,
-                content: {
-            NewResultsSheetView(users: userModel.users).environmentObject(scoreModel).environmentObject(userModel)
+    @State var email = ""
+    @State var password = ""
+    @FocusState private var emailFieldIsFocused: Bool
+    @FocusState private var passwordFieldIsFocused: Bool
+    @State private var invalidEmailPassword = false
+
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if error != nil {
+                invalidEmailPassword = true
+                return
+            }
+            isSignedIn = true
         }
-        ).font(.custom("Lemon-Regular", size: 16)).padding()
+    }
+
+    var body: some View {
+        if isSignedIn {
+            VStack {
+                Text("MARIO PARTY").font(Font.custom("Lemon-Regular", size: 32)).padding(.bottom)
+                ScoreView().environmentObject(userModel).environmentObject(scoreModel)
+                Spacer()
+                Button(action: {
+                    self.addingNewScores.toggle()
+                }) {
+                    Text("Neue Resultate").font(.custom("Lemon-Regular", size: 24))
+                }.padding().buttonStyle(.bordered).tint(.orange)
+            }.sheet(isPresented: $addingNewScores,
+                    content: {
+                NewResultsSheetView(users: userModel.users).environmentObject(scoreModel).environmentObject(userModel)
+            }
+            ).font(.custom("Lemon-Regular", size: 16)).padding()
+        }
+        if !isSignedIn {
+            VStack {
+                TextField("Benutzer (Email)", text: $email).keyboardType(.emailAddress).focused($emailFieldIsFocused).textInputAutocapitalization(.never).autocorrectionDisabled().padding().border(.secondary).padding()
+                SecureField("Passwort", text: $password).padding().border(.secondary).padding()
+                Button("Login") {
+                    login()
+                }.buttonStyle(.bordered).tint(.green).alert("Login fehlgeschlagen", isPresented: $invalidEmailPassword) {
+                    Button("Ok", role: .cancel) { }
+                }
+            }.font(.custom("Lemon-Regular", size: 18))
+        }
     }
     
     init() {
         userModel.getData()
         userModel.getUpdatedScores()
+        if Auth.auth().currentUser != nil {
+            self.isSignedIn = true
+        }
     }
 }
 
 struct NewResultsSheetView: View {
-    
-    
     
     var users: [User]
     @EnvironmentObject var userModel: UserModel
