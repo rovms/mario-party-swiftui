@@ -35,11 +35,7 @@ class ScoreModel: ObservableObject {
     }
     
     func delete(score: Score) {
-        db.collection("scores").document(score.id).delete() { error in
-            if error != nil {
-                print("could not delete")
-            }
-        }
+        db.collection("scores").document(score.id).delete()
     }
     
     func getScoreFromFirestoreDoc(i: Int = -1, documentSnapshot: QueryDocumentSnapshot) -> Score {
