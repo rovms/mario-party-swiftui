@@ -14,7 +14,7 @@ struct User: Identifiable {
     var score: Int
     var scores: [Score]
     
-    func cumulativeScores(game: MarioPartyVersion, year: Int) -> [Score] {
+    func cumulativeScores(game: MarioPartyVersion, year: String) -> [Score] {
         if self.scores.isEmpty {
             return []
         } else {
@@ -24,7 +24,11 @@ struct User: Identifiable {
                     $0.game == game.rawValue
                 }
             }
-            if (year)
+            if (year != "Alle") {
+                filteredScores = filteredScores.filter {
+                    Calendar.current.component(.year, from: $0.date) == Int(year)
+                }
+            }
             var sortedByDateScores = filteredScores.sorted {
                 $0.date < $1.date
             }

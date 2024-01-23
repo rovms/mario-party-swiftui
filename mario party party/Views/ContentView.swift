@@ -186,24 +186,22 @@ struct PlayerSlider2: View {
     }
 }
 
-struct Order: Identifiable {
-    var id: String = UUID().uuidString
-    var amount: Int
-    var day: Int
-}
-
 struct ScoreView : View {
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var scoreModel: ScoreModel
     
     @State var selectedMarioPartyVersion: MarioPartyVersion = .all
-    @State var selectedYear: Int = 2024
+    @State var selectedYear: String = "Alle"
     
     var startYear: Int = 2020
     var currentYear: Int = Calendar.current.component(.year, from: Date())
     
-    func availableYears() -> Range<Int> {
-        return startYear..<self.currentYear
+    func availableYears() -> [String] {
+        var availableYears = ["Alle"]
+        for year in startYear..<currentYear + 1 {
+            availableYears.append(String(year))
+        }
+        return availableYears
     }
     
     var body: some View {
@@ -214,8 +212,8 @@ struct ScoreView : View {
                 Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
             }.pickerStyle(.segmented).padding()
             Picker("Jahr", selection: $selectedYear) {
-                ForEach(availableYears()) { year in
-                    Text(String(year))
+                ForEach(availableYears(), id: \.self) { year in
+                    Text(year)
                 }
             }
             Chart {
