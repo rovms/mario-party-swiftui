@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C1C6E2E2B5EFA39006A4B87 /* MarioPartyVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1C6E2D2B5EFA39006A4B87 /* MarioPartyVersion.swift */; };
 		5CA3907C2B37132E00A3543C /* mario_party_partyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */; };
 		5CA3907E2B37132E00A3543C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3907D2B37132E00A3543C /* ContentView.swift */; };
 		5CA390802B37133000A3543C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA3907F2B37133000A3543C /* Assets.xcassets */; };
@@ -19,10 +20,8 @@
 		5CA390AB2B3881CA00A3543C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */; };
 		5CA390AE2B38836500A3543C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390AD2B38836500A3543C /* UserModel.swift */; };
 		5CA390B12B38844100A3543C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390B02B38844100A3543C /* User.swift */; };
-		5CA390B42B39E0CA00A3543C /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390B32B39E0CA00A3543C /* ScoresView.swift */; };
 		5CA390BB2B3C664E00A3543C /* ScoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BA2B3C664E00A3543C /* ScoreModel.swift */; };
 		5CA390BD2B3C667800A3543C /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BC2B3C667800A3543C /* Score.swift */; };
-		5CA390BF2B415F9000A3543C /* ScoresView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BE2B415F9000A3543C /* ScoresView2.swift */; };
 		5CB7F7462B597991005E9BCF /* PlayfairDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */; };
 		5CB7F7482B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */; };
 		5CB7F74A2B599486005E9BCF /* Lemon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */; };
@@ -46,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C1C6E2D2B5EFA39006A4B87 /* MarioPartyVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarioPartyVersion.swift; sourceTree = "<group>"; };
 		5CA390782B37132E00A3543C /* mario party party.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mario party party.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mario_party_partyApp.swift; sourceTree = "<group>"; };
 		5CA3907D2B37132E00A3543C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,10 +59,8 @@
 		5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CA390AD2B38836500A3543C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CA390B02B38844100A3543C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5CA390B32B39E0CA00A3543C /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		5CA390BA2B3C664E00A3543C /* ScoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreModel.swift; sourceTree = "<group>"; };
 		5CA390BC2B3C667800A3543C /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
-		5CA390BE2B415F9000A3543C /* ScoresView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView2.swift; sourceTree = "<group>"; };
 		5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mario-Party-Hudson-Font.ttf"; sourceTree = "<group>"; };
 		5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lemon-Regular.ttf"; sourceTree = "<group>"; };
@@ -95,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C1C6E2C2B5EFA23006A4B87 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5C1C6E2D2B5EFA39006A4B87 /* MarioPartyVersion.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		5CA3906F2B37132E00A3543C = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +127,7 @@
 		5CA3907A2B37132E00A3543C /* mario party party */ = {
 			isa = PBXGroup;
 			children = (
+				5C1C6E2C2B5EFA23006A4B87 /* Utils */,
 				5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */,
 				5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */,
 				5CA390B22B39826100A3543C /* Views */,
@@ -179,8 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				5CA3907D2B37132E00A3543C /* ContentView.swift */,
-				5CA390B32B39E0CA00A3543C /* ScoresView.swift */,
-				5CA390BE2B415F9000A3543C /* ScoresView2.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,9 +334,8 @@
 				5CA390BB2B3C664E00A3543C /* ScoreModel.swift in Sources */,
 				5CA390B12B38844100A3543C /* User.swift in Sources */,
 				5CA3907E2B37132E00A3543C /* ContentView.swift in Sources */,
-				5CA390B42B39E0CA00A3543C /* ScoresView.swift in Sources */,
 				5CA390AE2B38836500A3543C /* UserModel.swift in Sources */,
-				5CA390BF2B415F9000A3543C /* ScoresView2.swift in Sources */,
+				5C1C6E2E2B5EFA39006A4B87 /* MarioPartyVersion.swift in Sources */,
 				5CA390BD2B3C667800A3543C /* Score.swift in Sources */,
 				5CA3907C2B37132E00A3543C /* mario_party_partyApp.swift in Sources */,
 			);

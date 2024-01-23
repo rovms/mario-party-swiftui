@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Charts
+import Foundation
 
 struct ContentView: View {
     
@@ -16,17 +18,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("MARIO PARTY").font(Font.custom("Lemon-Regular", size: 32)).padding(.bottom)
-            VStack {
-                VStack {
-                    ForEach(userModel.usersSortedByScore()) { user in
-                        HStack {
-                            Text(user.name).font(Font.custom("Lemon-Regular", size: 18)).padding(.leading)
-                            Spacer()
-                            Text(String(user.totalScore)).font(Font.custom("Lemon-Regular", size: 18)).padding(.trailing)
-                        }
-                    }.padding(.bottom)
-                }
-            }
+            ScoreView().environmentObject(userModel).environmentObject(scoreModel)
             Spacer()
             Button(action: {
                 self.addingNewScores.toggle()
@@ -48,31 +40,7 @@ struct ContentView: View {
 
 struct NewResultsSheetView: View {
     
-    enum MarioPartyVersion: CaseIterable, Identifiable {
-        case marioParty2
-        case marioParty3
-        
-        var id: Self { self }
-        
-        var describing: String {
-            switch self {
-            case .marioParty2:
-                
-                return "Mario Party 2"
-            case .marioParty3:
-                return "Mario Party 3"
-            }
-        }
-        
-        var dbValue: String {
-            switch self {
-            case .marioParty2:
-                return "marioParty2"
-            case .marioParty3:
-                return "marioParty3"
-            }
-        }
-    }
+    
     
     var users: [User]
     @EnvironmentObject var userModel: UserModel
@@ -91,10 +59,7 @@ struct NewResultsSheetView: View {
                 maxScoreCount += 1
             }
         }
-        print("maxScoreCount")
-        print(maxScoreCount)
         if (maxScoreCount != 1) {
-            print("hello")
             invalidScore = true
             return false
         }
@@ -111,7 +76,7 @@ struct NewResultsSheetView: View {
                     value: user.score,
                     date: self.date,
                     userId: user.id,
-                    game: selectedMarioPartyVersion.dbValue
+                    game: selectedMarioPartyVersion.rawValue
                 ), userModel: userModel)
         }
         dismiss()
@@ -129,9 +94,8 @@ struct NewResultsSheetView: View {
             }.padding(.leading).padding(.trailing)
             Spacer()
             Picker("Spiel", selection: $selectedMarioPartyVersion) {
-                ForEach(MarioPartyVersion.allCases) { mpVersion in
-                    Text(mpVersion.describing)
-                }
+                Text("Mario Party 2").tag(MarioPartyVersion.marioParty2)
+                Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
             }.pickerStyle(.segmented).padding()
             Spacer()
             Divider()
@@ -190,6 +154,7 @@ struct PlayerSlider2: View {
         return Color.green
     }
     
+    
     var body: some View  {
         HStack() {
             Text(user.name)
@@ -218,6 +183,39 @@ struct PlayerSlider2: View {
     
     init(user: User) {
         self.user = user
+    }
+}
+
+struct Order: Identifiable {
+    var id: String = UUID().uuidString
+    var amount: Int
+    var day: Int
+}
+
+struct ScoreView : View {
+    @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var scoreModel: ScoreModel
+    
+    @State var selectedMarioPartyVersion: MarioPartyVersion = .all
+    
+    var body: some View {
+        VStack {
+            Picker("Spiel", selection: $selectedMarioPartyVersion) {
+                Text("Alle").tag(MarioPartyVersion.all)
+                Text("Mario Party 2").tag(MarioPartyVersion.marioParty2)
+                Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
+            }.pickerStyle(.segmented).padding()
+            Chart {
+                ForEach(userModel.users) { user in
+                    ForEach(Array(user.cumulativeScores.enumerated()), id: \.offset) { (i, score) in
+                        LineMark(
+                            x: .value("Month", i), y: .value("Scores", score.cumulativeValue)
+                        ).foregroundStyle(by: .value("name", user.name))
+                    }
+                }
+            }
+        }
+        
     }
 }
 

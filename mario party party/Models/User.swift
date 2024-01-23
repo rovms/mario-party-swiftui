@@ -8,46 +8,33 @@
 import Foundation
 
 struct User: Identifiable {
+    
     var id: String
     var name: String
     var score: Int
     var scores: [Score]
-    var totalScore: Int {
-        if self.scores.isEmpty {
-            return 0
-        } else {
-            var total = 0
-            self.scores.forEach { score in
-                total += score.value
-            }
-            return total
-        }
-    }
     
-    var cumulativeScores: [Int] {
+    var cumulativeScores: [Score] {
         if self.scores.isEmpty {
             return []
         } else {
-            let sortedByDateScores = self.scores.sorted {
+            var sortedByDateScores = self.scores.sorted {
                 $0.date < $1.date
             }
-            var retCumulativeScores = [Int]()
+            var retCumulativeScores = [Score]()
             for i in self.scores.indices {
                 if i == 0 {
-                    retCumulativeScores.append(sortedByDateScores[0].value)
+                    sortedByDateScores[i].cumulativeValue = sortedByDateScores[i].value
                 } else {
-                    retCumulativeScores.append(retCumulativeScores[i - 1] + sortedByDateScores[i].value)
+                    sortedByDateScores[i].cumulativeValue = sortedByDateScores[i - 1].cumulativeValue + sortedByDateScores[i].value
                 }
+                retCumulativeScores.append(sortedByDateScores[i])
+                
             }
+            
             return retCumulativeScores
+            
         }
-    }
-    
-    init() {
-        self.id = ""
-        self.name = ""
-        self.score = 0
-        self.scores = [Score]()
     }
     
     init(id: String, name: String, score: Int, scores: [Score]) {

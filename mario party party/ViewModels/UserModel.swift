@@ -11,44 +11,6 @@ import Firebase
 class UserModel: ObservableObject {
     @Published var users = [User]()
     @Published var scores = [Score]()
-    @Published var receivedUsers = false
-    var scoreModel = ScoreModel()
-    
-    func getUsers() {
-        let db = Firestore.firestore()
-        db.collection("users").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    DispatchQueue.main.async {
-                        self.users = snapshot.documents.map { userDocument in
-                            var user = self.getUserFromFirestoreDoc(documentSnapshot: userDocument)
-                            db.collection("users").document(userDocument.documentID).collection("scores").getDocuments { scoreSnapshot, scoreError in
-                                if scoreError == nil {
-                                    if let scoreSnapshot = scoreSnapshot {
-                                        DispatchQueue.main.async {
-                                            scoreSnapshot.documents.forEach { score in
-                                                user.scores.append(self.scoreModel.getScoreFromFirestoreDoc(documentSnapshot: score))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            return user
-                        }
-                    }
-                }
-            }
-        }
-        
-        print(self.users)
-    }
-    
-    func usersSortedByScore() -> [User] {
-        return self.users.sorted {
-            $0.totalScore > $1.totalScore
-        }
-    }
-    
     
     func getData() {
         let group = DispatchGroup()
@@ -70,7 +32,7 @@ class UserModel: ObservableObject {
             }
         }
         
-        db.collection("scores").getDocuments { snapshot, error in
+        db.collection("scores").order(by: "date").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     DispatchQueue.main.async {
@@ -84,20 +46,14 @@ class UserModel: ObservableObject {
         }
         
         group.notify(queue: .main) {
-            print("--- DONE ---")
-            print(self.users)
-            print(self.scores)
-            self.scores.forEach { score in
-                for i in self.users.indices {
-                    if score.userId == self.users[i].id {
-                        self.users[i].scores.append(score)
+            
+            //TODO: Improve logic, as this assumes that there are always exactly 4 scores per game (4 players)
+            for si in self.scores.indices {
+                for ui in self.users.indices {
+                    if self.scores[si].userId == self.users[ui].id {
+                        self.users[ui].scores.append(self.scores[si])
                     }
                 }
-            }
-            
-            self.users.forEach { user in
-                print("cumulative: " + user.name)
-                print(user.cumulativeScores)
             }
         }
     }
@@ -106,13 +62,11 @@ class UserModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("scores").whereField("date", isGreaterThan: Date()).addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
-                print("error fetching snapshots (listener)")
                 return
             }
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 if (diff.type == .added) {
-                    print("New score: \(document.data())")
                     for i in self.users.indices {
                         if document["userId"] as? String == self.users[i].id {
                             self.users[i].scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
@@ -121,22 +75,14 @@ class UserModel: ObservableObject {
                 }
                 if (diff.type == .modified) {
                     //TODO:
-                    print("Modified score: \(document.data())")
                 }
                 if (diff.type == .removed) {
                     //TODO:
                     let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
                     self.scores.remove(at: removedIndex)
-                    print("Removed score: \(document.data())")
                 }
             }
         }
-    }
-    
-    func getUser(userId: String) -> User {
-        return self.users.first(where: { user in
-            user.id == userId
-        }) ?? User()
     }
     
     func updateScore(userId: String, newScore: Int) {
@@ -157,20 +103,13 @@ class UserModel: ObservableObject {
     }
     
     func getScoreFromFirestoreDoc(documentSnapshot: QueryDocumentSnapshot) -> Score {
+        let ts = documentSnapshot["date"] as? Timestamp ?? Timestamp()
         return  Score(
             id: documentSnapshot.documentID,
             value: documentSnapshot["value"] as? Int ?? 0,
-            date: documentSnapshot["date"] as? Date ?? Date(),
+            date: ts.dateValue(),
             userId: documentSnapshot["userId"] as? String ?? "",
             game: documentSnapshot["game"] as? String ?? ""
         )
-    }
-    
-    func resetScore(userId: String) {
-        for i in self.users.indices {
-            if self.users[i].id == userId {
-                self.users[i].score = 0
-            }
-        }
     }
 }

@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0A732824-2729-4796-90E7-7A942818A055"
+            uuid = "73F49FA5-A314-408F-82A7-FBFF1949685C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mario party party/ViewModels/ScoreModel.swift"
+            filePath = "mario party party/ViewModels/UserModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "getScores()"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "getData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
