@@ -11,6 +11,8 @@ struct ScoreDetailsTableView: View {
     @EnvironmentObject var scoreModel: ScoreModel
     @EnvironmentObject var userModel: UserModel
     
+    @Environment(\.dismiss) var dismiss
+    
     func getUserName(userId: String) -> String {
         let user = userModel.users.first(where: {
             $0.id == userId
@@ -28,12 +30,13 @@ struct ScoreDetailsTableView: View {
         scores.forEach { score in
             scoreModel.delete(score: score)
         }
+        dismiss()
     }
     
     var body: some View {
         VStack {
             List {
-                ForEach(userModel.scoresGroupedByDate().sorted(by: {$0.key < $1.key}), id: \.key) { group, scores in
+                ForEach(userModel.scoresGroupedByDate().sorted(by: {$0.key > $1.key}), id: \.key) { group, scores in
                     Section {
                         ForEach(scores.sorted(by: { $0.userId < $1.userId })) { score in
                             HStack {

@@ -74,7 +74,7 @@ struct NewResultsView: View {
             Spacer()
             Button("Speichern") {
                 storeScore()
-            }.buttonStyle(.bordered).tint(.green).alert("Ungültiges Resultat", isPresented: $invalidScore) {
+            }.font(.custom("Lemon-Regular", size: 22)).buttonStyle(.bordered).tint(.green).alert("Ungültiges Resultat", isPresented: $invalidScore) {
                 Button("Ok", role: .cancel) { }
             }
         }.padding().presentationDetents([.height(500)])

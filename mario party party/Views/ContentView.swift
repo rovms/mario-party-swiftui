@@ -29,6 +29,8 @@ struct ContentView: View {
                 return
             }
             isSignedIn = true
+            userModel.getData()
+            userModel.getUpdatedScores()
         }
     }
     
@@ -42,7 +44,7 @@ struct ContentView: View {
                     Button(action: {
                         self.addingNewScores.toggle()
                     }) {
-                        Text("Neue Resultate").font(.custom("Lemon-Regular", size: 24))
+                        Text("Neue Resultate").font(.custom("Lemon-Regular", size: 22))
                     }.padding().buttonStyle(.bordered).tint(.orange)
                     Button(action: {
                         self.showScoreDetailsTable.toggle()
@@ -72,10 +74,11 @@ struct ContentView: View {
     }
     
     init() {
-        userModel.getData()
-        userModel.getUpdatedScores()
         if Auth.auth().currentUser != nil {
             self.isSignedIn = true
+        } else {
+            userModel.getData()
+            userModel.getUpdatedScores()
         }
     }
 }
