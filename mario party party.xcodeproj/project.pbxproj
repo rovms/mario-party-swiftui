@@ -8,13 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5C1C6E2E2B5EFA39006A4B87 /* MarioPartyVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1C6E2D2B5EFA39006A4B87 /* MarioPartyVersion.swift */; };
-		5CA3907C2B37132E00A3543C /* mario_party_partyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */; };
+		5CA3907C2B37132E00A3543C /* app.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3907B2B37132E00A3543C /* app.swift */; };
 		5CA3907E2B37132E00A3543C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3907D2B37132E00A3543C /* ContentView.swift */; };
 		5CA390802B37133000A3543C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA3907F2B37133000A3543C /* Assets.xcassets */; };
 		5CA390832B37133000A3543C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA390822B37133000A3543C /* Preview Assets.xcassets */; };
-		5CA3908D2B37133000A3543C /* mario_party_partyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3908C2B37133000A3543C /* mario_party_partyTests.swift */; };
-		5CA390972B37133000A3543C /* mario_party_partyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390962B37133000A3543C /* mario_party_partyUITests.swift */; };
-		5CA390992B37133000A3543C /* mario_party_partyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390982B37133000A3543C /* mario_party_partyUITestsLaunchTests.swift */; };
 		5CA390A72B3718FF00A3543C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA390A62B3718FF00A3543C /* FirebaseAnalytics */; };
 		5CA390A92B3718FF00A3543C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA390A82B3718FF00A3543C /* FirebaseFirestore */; };
 		5CA390AB2B3881CA00A3543C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */; };
@@ -25,6 +22,10 @@
 		5CB7F7462B597991005E9BCF /* PlayfairDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */; };
 		5CB7F7482B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */; };
 		5CB7F74A2B599486005E9BCF /* Lemon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */; };
+		5CC831B42B6054C80065F57D /* ScoreDetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B32B6054C80065F57D /* ScoreDetailsTableView.swift */; };
+		5CC831B62B6055130065F57D /* NewResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B52B6055130065F57D /* NewResultsView.swift */; };
+		5CC831B82B6055440065F57D /* PlayerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B72B6055440065F57D /* PlayerSliderView.swift */; };
+		5CC831BA2B60557A0065F57D /* AllScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B92B60557A0065F57D /* AllScoresView.swift */; };
 		5CEDE03B2B5FE86E00C9EFBB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEDE03A2B5FE86E00C9EFBB /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
@@ -48,15 +49,12 @@
 /* Begin PBXFileReference section */
 		5C1C6E2D2B5EFA39006A4B87 /* MarioPartyVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarioPartyVersion.swift; sourceTree = "<group>"; };
 		5CA390782B37132E00A3543C /* mario party party.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mario party party.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mario_party_partyApp.swift; sourceTree = "<group>"; };
+		5CA3907B2B37132E00A3543C /* app.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = app.swift; sourceTree = "<group>"; };
 		5CA3907D2B37132E00A3543C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5CA3907F2B37133000A3543C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA390822B37133000A3543C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5CA390882B37133000A3543C /* mario party partyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mario party partyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CA3908C2B37133000A3543C /* mario_party_partyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mario_party_partyTests.swift; sourceTree = "<group>"; };
 		5CA390922B37133000A3543C /* mario party partyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mario party partyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CA390962B37133000A3543C /* mario_party_partyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mario_party_partyUITests.swift; sourceTree = "<group>"; };
-		5CA390982B37133000A3543C /* mario_party_partyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mario_party_partyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CA390AD2B38836500A3543C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CA390B02B38844100A3543C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -65,6 +63,10 @@
 		5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mario-Party-Hudson-Font.ttf"; sourceTree = "<group>"; };
 		5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lemon-Regular.ttf"; sourceTree = "<group>"; };
+		5CC831B32B6054C80065F57D /* ScoreDetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDetailsTableView.swift; sourceTree = "<group>"; };
+		5CC831B52B6055130065F57D /* NewResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewResultsView.swift; sourceTree = "<group>"; };
+		5CC831B72B6055440065F57D /* PlayerSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSliderView.swift; sourceTree = "<group>"; };
+		5CC831B92B60557A0065F57D /* AllScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllScoresView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +112,6 @@
 				5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */,
 				5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */,
 				5CA3907A2B37132E00A3543C /* mario party party */,
-				5CA3908B2B37133000A3543C /* mario party partyTests */,
-				5CA390952B37133000A3543C /* mario party partyUITests */,
 				5CA390792B37132E00A3543C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,10 +129,10 @@
 		5CA3907A2B37132E00A3543C /* mario party party */ = {
 			isa = PBXGroup;
 			children = (
+				5CA3907B2B37132E00A3543C /* app.swift */,
+				5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */,
 				5CA390AF2B38842400A3543C /* Models */,
 				5C1C6E2C2B5EFA23006A4B87 /* Utils */,
-				5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */,
-				5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */,
 				5CA390B22B39826100A3543C /* Views */,
 				5CA390AC2B38834800A3543C /* ViewModels */,
 				5CA3907F2B37133000A3543C /* Assets.xcassets */,
@@ -147,23 +147,6 @@
 				5CA390822B37133000A3543C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		5CA3908B2B37133000A3543C /* mario party partyTests */ = {
-			isa = PBXGroup;
-			children = (
-				5CA3908C2B37133000A3543C /* mario_party_partyTests.swift */,
-			);
-			path = "mario party partyTests";
-			sourceTree = "<group>";
-		};
-		5CA390952B37133000A3543C /* mario party partyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				5CA390962B37133000A3543C /* mario_party_partyUITests.swift */,
-				5CA390982B37133000A3543C /* mario_party_partyUITestsLaunchTests.swift */,
-			);
-			path = "mario party partyUITests";
 			sourceTree = "<group>";
 		};
 		5CA390AC2B38834800A3543C /* ViewModels */ = {
@@ -188,6 +171,10 @@
 			isa = PBXGroup;
 			children = (
 				5CA3907D2B37132E00A3543C /* ContentView.swift */,
+				5CC831B92B60557A0065F57D /* AllScoresView.swift */,
+				5CC831B72B6055440065F57D /* PlayerSliderView.swift */,
+				5CC831B52B6055130065F57D /* NewResultsView.swift */,
+				5CC831B32B6054C80065F57D /* ScoreDetailsTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,13 +321,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CC831B62B6055130065F57D /* NewResultsView.swift in Sources */,
 				5CA390BB2B3C664E00A3543C /* ScoreModel.swift in Sources */,
+				5CC831B82B6055440065F57D /* PlayerSliderView.swift in Sources */,
 				5CA390B12B38844100A3543C /* User.swift in Sources */,
 				5CA3907E2B37132E00A3543C /* ContentView.swift in Sources */,
+				5CC831B42B6054C80065F57D /* ScoreDetailsTableView.swift in Sources */,
 				5CA390AE2B38836500A3543C /* UserModel.swift in Sources */,
 				5C1C6E2E2B5EFA39006A4B87 /* MarioPartyVersion.swift in Sources */,
 				5CA390BD2B3C667800A3543C /* Score.swift in Sources */,
-				5CA3907C2B37132E00A3543C /* mario_party_partyApp.swift in Sources */,
+				5CC831BA2B60557A0065F57D /* AllScoresView.swift in Sources */,
+				5CA3907C2B37132E00A3543C /* app.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +339,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CA3908D2B37133000A3543C /* mario_party_partyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,8 +346,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CA390972B37133000A3543C /* mario_party_partyUITests.swift in Sources */,
-				5CA390992B37133000A3543C /* mario_party_partyUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

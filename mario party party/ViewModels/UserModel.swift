@@ -67,11 +67,7 @@ class UserModel: ObservableObject {
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 if (diff.type == .added) {
-                    print("added score")
                     self.scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
-                }
-                if (diff.type == .modified) {
-                    print("modified score")
                 }
             }
         }
@@ -83,7 +79,6 @@ class UserModel: ObservableObject {
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 if (diff.type == .removed) {
-                    print("removed score")
                     self.scores.removeAll(where: {
                         $0.id == document.documentID
                     })
