@@ -54,7 +54,7 @@ struct ContentView: View {
                 }
             }.sheet(isPresented: $addingNewScores,
                     content: {
-                NewResultsSheetView(users: userModel.users).environmentObject(scoreModel).environmentObject(userModel)
+                NewResultsSheetView().environmentObject(scoreModel).environmentObject(userModel)
             }).sheet(isPresented: $showScoreDetailsTable,
                      content: {
                 ScoreDetailsTableView().environmentObject(scoreModel).environmentObject(userModel)
@@ -136,7 +136,6 @@ struct ScoreDetailsTableView: View {
 
 struct NewResultsSheetView: View {
     
-    var users: [User]
     @EnvironmentObject var userModel: UserModel
     @EnvironmentObject var scoreModel: ScoreModel
     
@@ -148,7 +147,7 @@ struct NewResultsSheetView: View {
     
     func validateScores() -> Bool {
         var maxScoreCount = 0
-        self.users.forEach { user in
+        self.userModel.users.forEach { user in
             if (user.score == 7) {
                 maxScoreCount += 1
             }
@@ -164,7 +163,7 @@ struct NewResultsSheetView: View {
         if (!validateScores()) {
             return
         }
-        self.users.forEach { user in
+        self.userModel.users.forEach { user in
             scoreModel.addScores(
                 score: Score(
                     value: user.score,
@@ -194,7 +193,7 @@ struct NewResultsSheetView: View {
             Spacer()
             Divider()
             Spacer()
-            ForEach(users) { user in
+            ForEach(userModel.users) { user in
                 PlayerSlider2(user: user).environmentObject(userModel)
             }
             Spacer()
@@ -207,10 +206,6 @@ struct NewResultsSheetView: View {
             }
         }.padding().presentationDetents([.height(500)])
         
-    }
-    
-    init(users: [User]) {
-        self.users = users
     }
 }
 
