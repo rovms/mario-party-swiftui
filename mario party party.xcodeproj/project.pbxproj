@@ -25,6 +25,7 @@
 		5CB7F7462B597991005E9BCF /* PlayfairDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */; };
 		5CB7F7482B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */; };
 		5CB7F74A2B599486005E9BCF /* Lemon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */; };
+		5CEDE03B2B5FE86E00C9EFBB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEDE03A2B5FE86E00C9EFBB /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA390A72B3718FF00A3543C /* FirebaseAnalytics in Frameworks */,
+				5CEDE03B2B5FE86E00C9EFBB /* FirebaseAuth in Frameworks */,
 				5CA390A92B3718FF00A3543C /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,11 +129,11 @@
 		5CA3907A2B37132E00A3543C /* mario party party */ = {
 			isa = PBXGroup;
 			children = (
+				5CA390AF2B38842400A3543C /* Models */,
 				5C1C6E2C2B5EFA23006A4B87 /* Utils */,
 				5CA390AA2B3881CA00A3543C /* GoogleService-Info.plist */,
 				5CA3907B2B37132E00A3543C /* mario_party_partyApp.swift */,
 				5CA390B22B39826100A3543C /* Views */,
-				5CA390AF2B38842400A3543C /* Models */,
 				5CA390AC2B38834800A3543C /* ViewModels */,
 				5CA3907F2B37133000A3543C /* Assets.xcassets */,
 				5CA390812B37133000A3543C /* Preview Content */,
@@ -209,6 +211,7 @@
 			packageProductDependencies = (
 				5CA390A62B3718FF00A3543C /* FirebaseAnalytics */,
 				5CA390A82B3718FF00A3543C /* FirebaseFirestore */,
+				5CEDE03A2B5FE86E00C9EFBB /* FirebaseAuth */,
 			);
 			productName = "mario party party";
 			productReference = 5CA390782B37132E00A3543C /* mario party party.app */;
@@ -691,6 +694,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5CA390A52B3718FF00A3543C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		5CEDE03A2B5FE86E00C9EFBB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CA390A52B3718FF00A3543C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
