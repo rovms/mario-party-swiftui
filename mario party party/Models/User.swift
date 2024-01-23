@@ -14,15 +14,26 @@ struct User: Identifiable {
     var score: Int
     var scores: [Score]
     
-    var cumulativeScores: [Score] {
+    func cumulativeScores(game: MarioPartyVersion, year: String) -> [Score] {
         if self.scores.isEmpty {
             return []
         } else {
-            var sortedByDateScores = self.scores.sorted {
+            var filteredScores = self.scores
+            if (game != .all) {
+                filteredScores = self.scores.filter {
+                    $0.game == game.rawValue
+                }
+            }
+            if (year != "Alle") {
+                filteredScores = filteredScores.filter {
+                    Calendar.current.component(.year, from: $0.date) == Int(year)
+                }
+            }
+            var sortedByDateScores = filteredScores.sorted {
                 $0.date < $1.date
             }
             var retCumulativeScores = [Score]()
-            for i in self.scores.indices {
+            for i in sortedByDateScores.indices {
                 if i == 0 {
                     sortedByDateScores[i].cumulativeValue = sortedByDateScores[i].value
                 } else {
