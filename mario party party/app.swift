@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 
 @main
-struct mario_party_partyApp: App {
+struct app: App {
     init() {
         FirebaseApp.configure()
     }
