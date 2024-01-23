@@ -11,7 +11,7 @@ import Firebase
 class UserModel: ObservableObject {
     @Published var users = [User]()
     @Published var scores = [Score]()
-      
+    
     func getData() {
         let group = DispatchGroup()
         
@@ -46,16 +46,11 @@ class UserModel: ObservableObject {
         }
         
         group.notify(queue: .main) {
-
+            
             //TODO: Improve logic, as this assumes that there are always exactly 4 scores per game (4 players)
-            var counter = 1
             for si in self.scores.indices {
-                if si - (counter - 1) * 4 >= 4 {
-                    counter = counter + 1
-                }
                 for ui in self.users.indices {
                     if self.scores[si].userId == self.users[ui].id {
-                        self.scores[si].i = counter
                         self.users[ui].scores.append(self.scores[si])
                     }
                 }
@@ -90,18 +85,6 @@ class UserModel: ObservableObject {
         }
     }
     
-    func usersSortedByScore() -> [User] {
-        return self.users.sorted {
-            $0.totalScore > $1.totalScore
-        }
-    }
-    
-    func getUser(userId: String) -> User {
-        return self.users.first(where: { user in
-            user.id == userId
-        }) ?? User()
-    }
-    
     func updateScore(userId: String, newScore: Int) {
         for i in 0..<users.count {
             if users[i].id == userId {
@@ -128,13 +111,5 @@ class UserModel: ObservableObject {
             userId: documentSnapshot["userId"] as? String ?? "",
             game: documentSnapshot["game"] as? String ?? ""
         )
-    }
-    
-    func resetScore(userId: String) {
-        for i in self.users.indices {
-            if self.users[i].id == userId {
-                self.users[i].score = 0
-            }
-        }
     }
 }

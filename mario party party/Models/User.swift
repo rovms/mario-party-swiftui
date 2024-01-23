@@ -13,17 +13,6 @@ struct User: Identifiable {
     var name: String
     var score: Int
     var scores: [Score]
-    var totalScore: Int {
-        if self.scores.isEmpty {
-            return 0
-        } else {
-            var total = 0
-            self.scores.forEach { score in
-                total += score.value
-            }
-            return total
-        }
-    }
     
     var cumulativeScores: [Score] {
         if self.scores.isEmpty {
@@ -34,32 +23,18 @@ struct User: Identifiable {
             }
             var retCumulativeScores = [Score]()
             for i in self.scores.indices {
-                print("score nr: " + String(i) + ", score: " + String(self.scores[i].value))
                 if i == 0 {
                     sortedByDateScores[i].cumulativeValue = sortedByDateScores[i].value
                 } else {
                     sortedByDateScores[i].cumulativeValue = sortedByDateScores[i - 1].cumulativeValue + sortedByDateScores[i].value
                 }
-                print(sortedByDateScores[i].cumulativeValue)
-
                 retCumulativeScores.append(sortedByDateScores[i])
-
+                
             }
             
-            print("cumulative scores")
-            print(name)
-            print(retCumulativeScores)
-            
             return retCumulativeScores
-
+            
         }
-    }
-    
-    init() {
-        self.id = ""
-        self.name = ""
-        self.score = 0
-        self.scores = [Score]()
     }
     
     init(id: String, name: String, score: Int, scores: [Score]) {
