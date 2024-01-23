@@ -67,22 +67,45 @@ class UserModel: ObservableObject {
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 if (diff.type == .added) {
-                    for i in self.users.indices {
-                        if document["userId"] as? String == self.users[i].id {
-                            self.users[i].scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
-                        }
-                    }
+                    print("added score")
+                    self.scores.append(self.getScoreFromFirestoreDoc(documentSnapshot: document))
                 }
                 if (diff.type == .modified) {
-                    //TODO:
-                }
-                if (diff.type == .removed) {
-                    //TODO:
-                    let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
-                    self.scores.remove(at: removedIndex)
+                    print("modified score")
                 }
             }
         }
+        
+        db.collection("scores").addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                let document = diff.document
+                if (diff.type == .removed) {
+                    print("removed score")
+                    self.scores.removeAll(where: {
+                        $0.id == document.documentID
+                    })
+                }
+            }
+        }
+    }
+    
+    func scoresGroupedByDate() -> [Int: [Score]] {
+        var ret: [Int: [Score]] = [1: [self.scores[0]]]
+        var currentGroup = 1
+        for i in self.scores.indices {
+            if i != 0 {
+                if self.scores[i].date == self.scores[i-1].date {
+                    ret[currentGroup]?.append(self.scores[i])
+                } else {
+                    currentGroup = currentGroup + 1
+                    ret[currentGroup] = [self.scores[i]]
+                }
+            }
+        }
+        return ret
     }
     
     func updateScore(userId: String, newScore: Int) {

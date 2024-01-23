@@ -13,28 +13,6 @@ class ScoreModel: ObservableObject {
     
     let db = Firestore.firestore()
     
-    func getUpdatedScores() {
-        db.collection("scores").whereField("date", isGreaterThan: Date()).addSnapshotListener { querySnapshot, error in
-            guard let snapshot = querySnapshot else {
-                return
-            }
-            snapshot.documentChanges.forEach { diff in
-                let document = diff.document
-                if (diff.type == .added) {
-                    self.scores.append(self.getScoreFromFirestoreDoc(i: -1, documentSnapshot: document))
-                }
-                if (diff.type == .modified) {
-                    //TODO:
-                }
-                if (diff.type == .removed) {
-                    //TODO:
-                    let removedIndex = self.scores.firstIndex(where: { $0.id == document.documentID})!
-                    self.scores.remove(at: removedIndex)
-                }
-            }
-        }
-    }
-    
     func addScores(score: Score, userModel: UserModel = UserModel()) {
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
@@ -52,6 +30,14 @@ class ScoreModel: ObservableObject {
                 if userModel.users[i].id == score.userId {
                     userModel.users[i].score = 0
                 }
+            }
+        }
+    }
+    
+    func delete(score: Score) {
+        db.collection("scores").document(score.id).delete() { error in
+            if error != nil {
+                print("could not delete")
             }
         }
     }
