@@ -197,6 +197,14 @@ struct ScoreView : View {
     @EnvironmentObject var scoreModel: ScoreModel
     
     @State var selectedMarioPartyVersion: MarioPartyVersion = .all
+    @State var selectedYear: Int = 2024
+    
+    var startYear: Int = 2020
+    var currentYear: Int = Calendar.current.component(.year, from: Date())
+    
+    func availableYears() -> Range<Int> {
+        return startYear..<self.currentYear
+    }
     
     var body: some View {
         VStack {
@@ -205,9 +213,14 @@ struct ScoreView : View {
                 Text("Mario Party 2").tag(MarioPartyVersion.marioParty2)
                 Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
             }.pickerStyle(.segmented).padding()
+            Picker("Jahr", selection: $selectedYear) {
+                ForEach(availableYears()) { year in
+                    Text(String(year))
+                }
+            }
             Chart {
                 ForEach(userModel.users) { user in
-                    ForEach(Array(user.cumulativeScores.enumerated()), id: \.offset) { (i, score) in
+                    ForEach(Array(user.cumulativeScores(game: selectedMarioPartyVersion, year: selectedYear).enumerated()), id: \.offset) { (i, score) in
                         LineMark(
                             x: .value("Month", i), y: .value("Scores", score.cumulativeValue)
                         ).foregroundStyle(by: .value("name", user.name))
@@ -215,7 +228,6 @@ struct ScoreView : View {
                 }
             }
         }
-        
     }
 }
 
