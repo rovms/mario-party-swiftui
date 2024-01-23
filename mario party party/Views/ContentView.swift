@@ -49,7 +49,7 @@ struct ContentView: View {
                     Button(action: {
                         self.showScoreDetailsTable.toggle()
                     }) {
-                        Image(systemName: "tablecells.badge.ellipsis").font(.title).foregroundStyle(.black)
+                        Image(systemName: "tablecells.badge.ellipsis").font(.title).tint(.gray)
                     }
                 }
             }.sheet(isPresented: $addingNewScores,
@@ -110,11 +110,11 @@ struct ScoreDetailsTableView: View {
             List {
                 ForEach(userModel.scoresGroupedByDate().sorted(by: {$0.key < $1.key}), id: \.key) { group, scores in
                     Section {
-                        ForEach(scores) { score in
+                        ForEach(scores.sorted(by: { $0.userId < $1.userId })) { score in
                             HStack {
                                 Text(self.getUserName(userId: score.userId))
                                 Spacer()
-                                    Text(score.value.description)
+                                Text(score.value.description)
                                 
                             }
                         }
@@ -127,7 +127,7 @@ struct ScoreDetailsTableView: View {
                             deleteScores(scores: scores)
                         }.tint(.red)
                     }
-                    }
+                }
                 }
             }
         }
@@ -318,7 +318,7 @@ struct ScoreView : View {
                         ).foregroundStyle(by: .value("name", user.name))
                     }
                 }
-            }
+            }.padding()
         }
     }
 }
