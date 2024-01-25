@@ -29,7 +29,7 @@ struct AllScoresView : View {
     var body: some View {
         VStack {
             Picker("Spiel", selection: $selectedMarioPartyVersion) {
-                Text("Alle Jahre").tag(MarioPartyVersion.all)
+                Text("Alle").tag(MarioPartyVersion.all)
                 Text("Mario Party 2").tag(MarioPartyVersion.marioParty2)
                 Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
             }.pickerStyle(.segmented).padding()
