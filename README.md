@@ -9,8 +9,7 @@ This is a simple app that allows you to keep track of scores for your yearly tra
 - Delete existing scores
 - Prevent unauthorized users from reading / writing data --> Reach out to me directly if you would like read access!
 
-![image](https://github.com/rovms/mario-party-swiftui/assets/23122786/5d584b01-cb25-4998-ae28-cd68ea2600e7)
-
+![image](https://github.com/rovms/mario-party-swiftui/assets/23122786/7dc857a6-875f-40ae-8d0e-db8740719ad6)
 
 ### Requirements
 - iOS 14.0+
