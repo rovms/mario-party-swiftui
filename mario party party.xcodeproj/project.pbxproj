@@ -19,8 +19,6 @@
 		5CA390B12B38844100A3543C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390B02B38844100A3543C /* User.swift */; };
 		5CA390BB2B3C664E00A3543C /* ScoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BA2B3C664E00A3543C /* ScoreModel.swift */; };
 		5CA390BD2B3C667800A3543C /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA390BC2B3C667800A3543C /* Score.swift */; };
-		5CB7F7462B597991005E9BCF /* PlayfairDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */; };
-		5CB7F7482B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */; };
 		5CB7F74A2B599486005E9BCF /* Lemon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */; };
 		5CC831B42B6054C80065F57D /* ScoreDetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B32B6054C80065F57D /* ScoreDetailsTableView.swift */; };
 		5CC831B62B6055130065F57D /* NewResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC831B52B6055130065F57D /* NewResultsView.swift */; };
@@ -60,8 +58,6 @@
 		5CA390B02B38844100A3543C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5CA390BA2B3C664E00A3543C /* ScoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreModel.swift; sourceTree = "<group>"; };
 		5CA390BC2B3C667800A3543C /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
-		5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Medium.ttf"; sourceTree = "<group>"; };
-		5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mario-Party-Hudson-Font.ttf"; sourceTree = "<group>"; };
 		5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lemon-Regular.ttf"; sourceTree = "<group>"; };
 		5CC831B32B6054C80065F57D /* ScoreDetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDetailsTableView.swift; sourceTree = "<group>"; };
 		5CC831B52B6055130065F57D /* NewResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewResultsView.swift; sourceTree = "<group>"; };
@@ -109,8 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				5CB7F7492B599486005E9BCF /* Lemon-Regular.ttf */,
-				5CB7F7472B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf */,
-				5CB7F7452B597991005E9BCF /* PlayfairDisplay-Medium.ttf */,
 				5CA3907A2B37132E00A3543C /* mario party party */,
 				5CA390792B37132E00A3543C /* Products */,
 			);
@@ -292,9 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA390832B37133000A3543C /* Preview Assets.xcassets in Resources */,
-				5CB7F7462B597991005E9BCF /* PlayfairDisplay-Medium.ttf in Resources */,
 				5CA390802B37133000A3543C /* Assets.xcassets in Resources */,
-				5CB7F7482B597A3D005E9BCF /* Mario-Party-Hudson-Font.ttf in Resources */,
 				5CA390AB2B3881CA00A3543C /* GoogleService-Info.plist in Resources */,
 				5CB7F74A2B599486005E9BCF /* Lemon-Regular.ttf in Resources */,
 			);

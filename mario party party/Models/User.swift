@@ -24,7 +24,7 @@ struct User: Identifiable {
                     $0.game == game.rawValue
                 }
             }
-            if (year != "Alle") {
+            if (year != "Alle Jahre") {
                 filteredScores = filteredScores.filter {
                     Calendar.current.component(.year, from: $0.date) == Int(year)
                 }

@@ -13,13 +13,13 @@ struct AllScoresView : View {
     @EnvironmentObject var scoreModel: ScoreModel
     
     @State var selectedMarioPartyVersion: MarioPartyVersion = .all
-    @State var selectedYear: String = "Alle"
+    @State var selectedYear: String = "Alle Jahre"
     
     var startYear: Int = 2020
     var currentYear: Int = Calendar.current.component(.year, from: Date())
     
     func availableYears() -> [String] {
-        var availableYears = ["Alle"]
+        var availableYears = ["Alle Jahre"]
         for year in startYear..<currentYear + 1 {
             availableYears.append(String(year))
         }
@@ -29,7 +29,7 @@ struct AllScoresView : View {
     var body: some View {
         VStack {
             Picker("Spiel", selection: $selectedMarioPartyVersion) {
-                Text("Alle").tag(MarioPartyVersion.all)
+                Text("Alle Jahre").tag(MarioPartyVersion.all)
                 Text("Mario Party 2").tag(MarioPartyVersion.marioParty2)
                 Text("Mario Party 3").tag(MarioPartyVersion.marioParty3)
             }.pickerStyle(.segmented).padding()
